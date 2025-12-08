@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  /* Hero Section (Jumbotron) */
+  .jumbotron {
+    background: linear-gradient(135deg, #4fb3ff, #6ee7b7);
+    padding: 40px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+  }
+
+  .jumbotron h1 {
+    font-weight: 700;
+  }
+
+  .jumbotron .lead {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  /* Doctor Cards */
+  .card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  }
+
+  .card-title {
+    font-weight: 600;
+    color: #0077cc;
+  }
+
+  .card-text {
+    color: #444;
+  }
+
+  .card-text.small {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  /* Section title */
+  h3 {
+    margin-top: 20px;
+    font-weight: 600;
+    border-left: 4px solid #0077cc;
+    padding-left: 10px;
+  }
+</style>
+
+<div class="jumbotron">
+  <h1>Welcome to Hospital Management</h1>
+  <p class="lead">Book appointments, manage patients and doctors.</p>
+  <hr>
+
+  <h3>Doctors</h3>
+
+  <div class="row">
+    {% for d in doctors %}
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ d.name }}</h5>
+            <p class="card-text">{{ d.speciality }}</p>
+            <p class="card-text small">{{ d.email }} - {{ d.phone }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

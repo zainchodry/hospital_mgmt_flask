@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .dashboard-title {
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #0077cc;
+  }
+
+  .role-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin-left: 10px;
+  }
+
+  .role-admin { background-color: #dc3545; }
+  .role-doctor { background-color: #28a745; }
+  .role-patient { background-color: #0d6efd; }
+
+  .dash-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+  }
+
+  .dash-card h3 {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .appointment-list li {
+    margin-bottom: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #f5f7f9;
+    border-left: 4px solid #0077cc;
+  }
+
+  .btn-sm {
+    margin-bottom: 12px;
+  }
+</style>
+
+<h2 class="dashboard-title">
+  Dashboard
+
+  {% if current_user.role == 'admin' %}
+    <span class="role-badge role-admin">Admin</span>
+  {% elif current_user.role == 'doctor' %}
+    <span class="role-badge role-doctor">Doctor</span>
+  {% else %}
+    <span class="role-badge role-patient">Patient</span>
+  {% endif %}
+</h2>
+
+{% if current_user.role == 'admin' %}
+
+  <div class="dash-card">
+    <h3>Doctors</h3>
+    <a href="{{ url_for('main.doctors') }}" class="btn btn-sm btn-success">Manage Doctors</a>
+  </div>
+
+  <div class="dash-card">
+    <h3>Patients</h3>
+    <a href="{{ url_for('main.patients') }}" class="btn btn-sm btn-success">Manage Patients</a>
+  </div>
+
+  <div class="dash-card">
+    <h3>Appointments</h3>
+    <a href="{{ url_for('main.appointments') }}" class="btn btn-sm btn-primary">View / Book Appointments</a>
+  </div>
+
+  <div class="dash-card">
+    <h4>Recent Appointments</h4>
+    <ul class="appointment-list">
+      {% for a in appointments %}
+        <li>{{ a.date }} - {{ a.patient.name }} with Dr. {{ a.doctor.name }}</li>
+      {% else %}
+        <li>No appointments yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% elif current_user.role == 'doctor' %}
+
+  <div class="dash-card">
+    <h4>Your Appointments</h4>
+    <ul class="appointment-list">
+      {% for a in appointments %}
+        <li>{{ a.date }} - {{ a.patient.name }} ({{ a.reason }})</li>
+      {% else %}
+        <li>No appointments.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% else %}
+
+  <div class="dash-card">
+    <h4>Your Appointments</h4>
+    <ul class="appointment-list">
+      {% for a in appointments %}
+        <li>{{ a.date }} - Dr. {{ a.doctor.name }} ({{ a.reason }})</li>
+      {% else %}
+        <li>No appointments yet.</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('main.appointments') }}" class="btn btn-primary mt-2">Book Appointment</a>
+  </div>
+
+{% endif %}
+
+{% endblock %}

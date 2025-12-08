@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .doctor-title {
+    font-weight: 800;
+    color: #0077cc;
+    margin-bottom: 20px;
+  }
+
+  .doctor-form-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 550px;
+    margin-bottom: 30px;
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  .doctor-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .doctor-list li {
+    background: #f5f7f9;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid #0077cc;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .doctor-list li span {
+    font-weight: 600;
+  }
+</style>
+
+<h2 class="doctor-title">Manage Doctors</h2>
+
+<div class="doctor-form-box">
+  <form method="post">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.speciality.label(class="form-label") }}
+      {{ form.speciality(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.phone.label(class="form-label") }}
+      {{ form.phone(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.email.label(class="form-label") }}
+      {{ form.email(class="form-control") }}
+    </div>
+
+    <div class="d-grid">
+      {{ form.submit(class="btn btn-success btn-block") }}
+    </div>
+  </form>
+</div>
+
+<hr>
+
+<h4>All Doctors</h4>
+<ul class="doctor-list">
+  {% for d in doctors %}
+    <li>
+      <span>{{ d.name }}</span>
+      {{ d.speciality }} — {{ d.email }}
+    </li>
+  {% else %}
+    <li>No doctors yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

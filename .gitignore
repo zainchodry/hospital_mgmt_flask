@@ -1,0 +1,57 @@
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.log
+
+# ---- Virtual Environment ----
+venv/
+env/
+ENV/
+.venv/
+
+# ---- Flask / Instance Folder ----
+instance/
+*.sqlite3
+*.db
+*.sqlite
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.swp
+
+# ---- Environment Variables ----
+.env
+.env.*
+*.ini
+*.cfg
+*.toml
+
+# ---- Cache ----
+cache/
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# ---- Static / Generated ----
+uploads/
+media/
+*.bak
+
+# ---- OS Files ----
+.DS_Store
+Thumbs.db
+
+# ---- pytest / coverage ----
+.coverage
+htmlcov/
+.cache/
+
+# ---- dotenv backups ----
+.env.bak
+.env.backup
